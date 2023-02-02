@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        function callFun() {
+
+            //1. Create AJAX Object
+            ajax = new XMLHttpRequest();
+            if (ajax) {
+                alert("ajax created.")
+            }
+
+            //2. Create url
+            var url = "http://localhost:9000/greet";
+            alert(url);
+
+            //3. Send url through AJAx
+            ajax.open("GET", url, true);
+            ajax.send("");
+
+            //4. Update page at response
+            ajax.onreadystatechange = updatePage;
+        }
+
+        function updatePage() {
+            alert(ajax.readyState);
+            if (ajax.readyState == 4) {
+                document.getElementById("div").innerHTML = ajax.responseText;
+            }
+        }
+
+        
+    </script>
+</head>
+<body>
+    <form method="get">
+        <input type="button" value="Click here!" onclick="callFun()"/>
+    </form>
+        <div id="div">
+
+        </div>
+</body>
+</html>
