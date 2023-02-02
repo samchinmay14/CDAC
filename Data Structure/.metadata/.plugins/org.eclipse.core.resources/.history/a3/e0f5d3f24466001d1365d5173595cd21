@@ -1,0 +1,101 @@
+package queue_3;
+
+public class Queue_prio 
+{
+	private int front;
+	private int rear;
+	private int size;
+	private Element[]arr;
+	
+	public Queue_prio()
+	{
+		front=rear=-1;
+		size=5;
+		arr=new Element[5];
+	}
+	public Queue_prio(int size)
+	{
+		front=rear=-1;
+		this.size=size;
+		arr=new Element[size];
+	}
+	
+	public boolean isFull()
+	{
+		return front==(rear+1)%size;
+	}
+	
+	public boolean isEmpty()
+	{
+		return front==-1;
+	}
+	
+	public void sort(Element []arr)
+	{
+		for(int i=0;i<=rear;i++)
+		{
+			for(int j=0;j<=rear-i-1;j++)
+			{
+				Element temp=arr[j];
+				if(arr[j].prio<arr[j+1].prio)
+				{
+					arr[j]=arr[j+1];
+					arr[j+1]=temp;
+				}
+			}
+		}
+	}
+	public void enQueue(Element e)
+	{
+		
+		if(!isFull())
+		{
+			if(front==-1)
+			{
+				front=0;
+			}
+			rear=(rear+1)%size;
+			arr[rear]=e;
+			
+		}
+		else
+			System.out.println("Queue Full!!");
+		
+	}
+	
+	public Element deQueue()
+	{
+		int d=-9999;
+		int p=-1;
+		if(!isEmpty())
+		{
+			d=arr[front].data;
+			p=arr[front].prio;
+			if(front==rear)
+			{
+				front=rear=-1;
+			}
+			else
+			{
+				front=(front+1)%size;
+			}
+		}
+		Element ed=new Element(d,p);
+		return ed;
+	}
+	
+	public void display()
+	{
+		if(front!=-1)
+		{
+			for(int i=front;i!=rear;i=(i+1)%size)
+			{
+				System.out.print(arr[i]);
+			}
+			System.out.println(arr[rear]);
+		}
+		else
+			System.out.println("Queue Empty!!");
+		System.out.println("\nFront : "+front+"\nRear : "+rear);
+	}
+}
